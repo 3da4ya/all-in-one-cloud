@@ -1,0 +1,56 @@
+groups:
+  - name: all-in-one-alerts
+    rules:
+
+      # ── API упав ─────────────────────────────────────────────
+      - alert: ApiDown
+        expr: api_up == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "🚨 СИТУАЦІЙНИЙ ЦЕНТР: api-server недоступний!"
+          description: "API-сервер не відповідає вже {{ $value }}s"
+
+      # ── БД упала ──────────────────────────────────────────────
+      - alert: DatabaseDown
+        expr: api_db_up == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "🚨 СИТУАЦІЙНИЙ ЦЕНТР: db-server недоступна!"
+          description: "PostgreSQL не відповідає"
+
+      # ── Redis упав ───────────────────────────────────────────
+      - alert: RedisDown
+        expr: api_redis_up == 0
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "⚠️ redis-cache недоступний"
+          description: "Redis не відповідає — кешування вимкнено"
+
+      # ── Контейнер жере більше 80% CPU ────────────────────────
+      - alert: HighCpuUsage
+        expr: >
+          rate(container_cpu_usage_seconds_total{image!=""}[2m]) * 100 > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "⚠️ Високе навантаження CPU"
+          description: "Контейнер {{ $labels.name }}: {{ $value | printf \"%.1f\" }}% CPU"
+
+      # ── Пам'ять контейнера > 90% від ліміту ─────────────────
+      - alert: HighMemoryUsage
+        expr: >
+          (container_memory_usage_bytes{image!=""} /
+           container_spec_memory_limit_bytes{image!=""}) * 100 > 90
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "⚠️ Критичне використання RAM"
+          description: "Контейнер {{ $labels.name }}: {{ $value | printf \"%.1f\" }}% пам'яті"

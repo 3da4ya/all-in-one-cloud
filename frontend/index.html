@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All-in-One AI Cloud Workspace · by 3da4ya</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f1117;
+      --card: #1a1d27;
+      --border: #2a2d3a;
+      --accent: #6c63ff;
+      --accent2: #00d4aa;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --green: #22c55e;
+      --red: #ef4444;
+      --amber: #f59e0b;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: .4rem;
+    }
+    header p { color: var(--muted); font-size: .9rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      max-width: 960px;
+      margin: 0 auto 2rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem;
+      transition: border-color .2s;
+    }
+    .card:hover { border-color: var(--accent); }
+    .card-icon { font-size: 1.6rem; margin-bottom: .6rem; }
+    .card-title { font-size: .85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .3rem; }
+    .card-value { font-size: 1.5rem; font-weight: 700; }
+    .card-link { display: block; margin-top: .7rem; font-size: .8rem; color: var(--accent); text-decoration: none; }
+    .card-link:hover { text-decoration: underline; }
+    .status-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: pulse 2s infinite;
+    }
+    .dot-green { background: var(--green); }
+    .dot-red   { background: var(--red); }
+    .dot-amber { background: var(--amber); }
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: .4; }
+    }
+    .services {
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .services-header {
+      padding: .8rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .svc-row {
+      display: flex;
+      align-items: center;
+      padding: .7rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+      gap: 1rem;
+      font-size: .9rem;
+    }
+    .svc-row:last-child { border-bottom: none; }
+    .svc-name { flex: 1; font-weight: 500; }
+    .svc-port { color: var(--muted); font-family: monospace; font-size: .82rem; min-width: 100px; }
+    .badge {
+      font-size: .72rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .badge-green { background: rgba(34,197,94,.15); color: var(--green); }
+    .badge-amber { background: rgba(245,158,11,.15); color: var(--amber); }
+    footer {
+      text-align: center;
+      margin-top: 2.5rem;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>⚡ All-in-One AI Cloud Workspace</h1>
+  <p>by 3da4ya &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; <span id="time"></span></p>
+</header>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-icon">🌐</div>
+    <div class="card-title">API статус</div>
+    <div class="card-value" id="api-status">—</div>
+    <a class="card-link" href="/api/health" target="_blank">Перевірити /health →</a>
+  </div>
+  <div class="card">
+    <div class="card-icon">📊</div>
+    <div class="card-title">Grafana</div>
+    <div class="card-value">Дашборди</div>
+    <a class="card-link" href="http://localhost:3000" target="_blank">Відкрити Grafana →</a>
+  </div>
+  <div class="card">
+    <div class="card-icon">🔔</div>
+    <div class="card-title">Gotify Push</div>
+    <div class="card-value">Алерти</div>
+    <a class="card-link" href="http://localhost:8080" target="_blank">Відкрити Gotify →</a>
+  </div>
+  <div class="card">
+    <div class="card-icon">🔭</div>
+    <div class="card-title">Prometheus</div>
+    <div class="card-value">Метрики</div>
+    <a class="card-link" href="http://localhost:9090" target="_blank">Відкрити Prometheus →</a>
+  </div>
+</div>
+
+<div class="services">
+  <div class="services-header">Сервіси екосистеми</div>
+  <div class="svc-row">
+    <span class="status-dot dot-green"></span>
+    <span class="svc-name">web-server (nginx)</span>
+    <span class="svc-port">:80</span>
+    <span class="badge badge-green">Online</span>
+  </div>
+  <div class="svc-row">
+    <span class="status-dot dot-green" id="api-dot"></span>
+    <span class="svc-name">api-server (Node.js)</span>
+    <span class="svc-port">:3001 (internal)</span>
+    <span class="badge badge-green" id="api-badge">Checking…</span>
+  </div>
+  <div class="svc-row">
+    <span class="status-dot dot-green"></span>
+    <span class="svc-name">db-server (PostgreSQL 15)</span>
+    <span class="svc-port">:5432 (internal)</span>
+    <span class="badge badge-green">Online</span>
+  </div>
+  <div class="svc-row">
+    <span class="status-dot dot-green"></span>
+    <span class="svc-name">redis-cache (LRU 256MB)</span>
+    <span class="svc-port">:6379 (internal)</span>
+    <span class="badge badge-green">Online</span>
+  </div>
+  <div class="svc-row">
+    <span class="status-dot dot-amber"></span>
+    <span class="svc-name">push-server (Gotify)</span>
+    <span class="svc-port">:8080</span>
+    <span class="badge badge-amber">External</span>
+  </div>
+  <div class="svc-row">
+    <span class="status-dot dot-green"></span>
+    <span class="svc-name">cadvisor</span>
+    <span class="svc-port">:8081</span>
+    <span class="badge badge-green">Online</span>
+  </div>
+  <div class="svc-row">
+    <span class="status-dot dot-green"></span>
+    <span class="svc-name">prometheus</span>
+    <span class="svc-port">:9090</span>
+    <span class="badge badge-green">Online</span>
+  </div>
+  <div class="svc-row">
+    <span class="status-dot dot-green"></span>
+    <span class="svc-name">grafana</span>
+    <span class="svc-port">:3000</span>
+    <span class="badge badge-green">Online</span>
+  </div>
+</div>
+
+<footer>© 2026 Олександр Владиславович (3da4ya). Усі права захищені.</footer>
+
+<script>
+  // Час
+  function tick() {
+    document.getElementById('time').textContent = new Date().toLocaleTimeString('uk-UA');
+  }
+  tick(); setInterval(tick, 1000);
+
+  // Перевірка API
+  async function checkApi() {
+    try {
+      const r = await fetch('/api/health');
+      const data = await r.json();
+      document.getElementById('api-status').textContent = data.status === 'ok' ? '✅ OK' : '⚠ ' + data.status;
+      document.getElementById('api-badge').textContent = 'Online';
+      document.getElementById('api-dot').className = 'status-dot dot-green';
+    } catch {
+      document.getElementById('api-status').textContent = '❌ Offline';
+      document.getElementById('api-badge').textContent = 'Offline';
+      document.getElementById('api-badge').className = 'badge badge-amber';
+      document.getElementById('api-dot').className = 'status-dot dot-red';
+    }
+  }
+  checkApi(); setInterval(checkApi, 15000);
+</script>
+
+</body>
+</html>

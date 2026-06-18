@@ -1,0 +1,44 @@
+global:
+  scrape_interval:     5s   # як у Книзі Архітектури
+  evaluation_interval: 5s
+  scrape_timeout:      4s
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []   # alertmanager не використовується — алерти через API
+
+rule_files:
+  - "alerts.yml"
+
+scrape_configs:
+
+  # ── Сам Prometheus ───────────────────────────────────────────
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          service: 'prometheus'
+
+  # ── cAdvisor — метрики Docker-контейнерів ────────────────────
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+        labels:
+          service: 'cadvisor'
+    metric_relabel_configs:
+      - source_labels: [container_label_com_docker_compose_service]
+        target_label: service_name
+
+  # ── API-сервер — кастомні метрики ────────────────────────────
+  - job_name: 'api-server'
+    static_configs:
+      - targets: ['api-server:3001']
+        labels:
+          service: 'api'
+    metrics_path: '/metrics'
+
+  # ── PostgreSQL (через pg_exporter, якщо додаси) ───────────────
+  # - job_name: 'postgres'
+  #   static_configs:
+  #     - targets: ['postgres-exporter:9187']
