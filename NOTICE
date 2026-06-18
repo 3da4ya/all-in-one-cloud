@@ -1,0 +1,21 @@
+All-in-One AI Cloud Workspace
+Copyright 2026 Олександр Владиславович (3da4ya)
+
+This product bundles and orchestrates several open-source components.
+Each component retains its own license — see the respective upstream
+projects for full license texts:
+
+  - Docker Engine & Docker Compose
+  - PostgreSQL
+  - Nginx
+  - Prometheus
+  - Grafana (note: Grafana itself is AGPL-3.0; dashboards provisioned by
+    this project are configuration, not Grafana code)
+  - cAdvisor
+  - Gotify
+  - ZeroTier One
+  - Node.js runtime
+  - Express (Node.js framework)
+
+For license compatibility or attribution questions, please open an issue
+in this repository.

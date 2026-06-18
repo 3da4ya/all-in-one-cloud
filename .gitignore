@@ -1,0 +1,22 @@
+# ── СЕКРЕТИ (ніколи не комітити!)
+.env
+*.env
+
+# ── БЕКАПИ (великі файли)
+backups/
+
+# ── ДАНІ DOCKER VOLUMES (якщо монтуєш локально)
+data/
+
+# ── NODE
+api/node_modules/
+api/npm-debug.log*
+
+# ── OS
+.DS_Store
+Thumbs.db
+
+# ── РЕДАКТОРИ
+.vscode/
+.idea/
+*.swp
